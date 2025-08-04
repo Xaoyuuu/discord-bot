@@ -1,17 +1,20 @@
-# Node.jsのバージョン、変える事。
 FROM python:3.11
 
 # 作業ディレクトリを /app に
 WORKDIR /app
 
-# app フォルダ内の内容をコンテナの /app にコピー
+# アプリと依存ファイルのコピー
 COPY app/ .
+COPY app/requirements.txt .
+
+# pipアップグレード（任意）
+RUN pip install --upgrade pip
 
 # 依存関係のインストール
 RUN pip install -r requirements.txt
 
-# ポートを開ける（Koyeb用）、使用してるポート番号にすること。
+# ポート指定（Flaskとかなら3000でOK）
 EXPOSE 3000
 
-# アプリの起動、コマンドを指定しよう。index.jsなら"node", "index.js"
+# アプリ起動（Flaskなら app.py / main.py）
 CMD ["python", "main.py"]
