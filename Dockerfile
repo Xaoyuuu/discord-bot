@@ -1,5 +1,5 @@
 # Node.jsのバージョン、変える事。
-FROM node:18
+FROM python:3.11
 
 # 作業ディレクトリを /app に
 WORKDIR /app
@@ -8,10 +8,10 @@ WORKDIR /app
 COPY app/ .
 
 # 依存関係のインストール
-RUN npm install
+RUN pip install -r requirements.txt
 
 # ポートを開ける（Koyeb用）、使用してるポート番号にすること。
 EXPOSE 3000
 
 # アプリの起動、コマンドを指定しよう。index.jsなら"node", "index.js"
-CMD ["node", "main.py"]
+CMD ["python", "main.py"]
